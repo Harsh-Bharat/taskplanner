@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/Stylesheet/Style.css">
+</head>
+<body>
+  <div class="flex flex-col gap-4 p-4">
+    <form action="/create" method="post" class="flex flex-col gap-2">
+      <input type="text" name="kuchname" required placeholder="Write name here" class="border p-2 rounded">
+      <input type="date" name="postholder" required placeholder="Write post" class="border p-2 rounded">
+      <input type="time" name="starttime" required placeholder="Start time" class="border p-2 rounded">
+      <input type="time" name="endtime" required placeholder="End time" class="border p-2 rounded">
+      <input type="submit" value="Submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+    </form>
+  </div>
+
+  <% if (props.length > 0) { %>
+    <div class="flex flex-row flex-wrap gap-4 p-4">
+      <% props.forEach(function(value) { %>
+        <div class="flex flex-col max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= value.name %></h5>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <%= value.content %>
+          </p>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            Start Time: <%= value.starttime %>
+          </p>
+          <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            End Time: <%= value.endtime %>
+          </p>
+          <form action="/delete?_method=DELETE" method="post" class="mt-4">
+            <input type="hidden" name="buttonh" value="<%= value.name.replace('.txt', '') %>">
+            <button type="submit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+              Delete
+            </button>
+            <a   href="/editkro"  type="submit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+           edit
+            </a>
+          </form>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>
+</body>
+</html>
